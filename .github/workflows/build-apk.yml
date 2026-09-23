@@ -27,14 +27,18 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Install Dependencies
+      - name: Install Project Dependencies
         run: |
           npm install --legacy-peer-deps
+
+      - name: Ensure Capacitor Packages Are Installed
+        run: |
+          npm install --legacy-peer-deps @capacitor/core@7 @capacitor/cli@7 @capacitor/android@7
 
       - name: Build Web App
         run: npm run build
 
-      - name: Prepare Capacitor Android Project
+      - name: Initialize & Sync Capacitor Android
         run: |
           if [ ! -f "capacitor.config.json" ]; then
             cat << 'EOF' > capacitor.config.json
@@ -46,9 +50,9 @@ jobs:
           EOF
           fi
           if [ ! -d "android" ]; then
-            npx --legacy-peer-deps @capacitor/cli add android
+            ./node_modules/.bin/cap add android
           fi
-          npx --legacy-peer-deps @capacitor/cli sync android
+          ./node_modules/.bin/cap sync android
 
       - name: Configure Android SDK Location
         run: |
