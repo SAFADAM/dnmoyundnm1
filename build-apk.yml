@@ -1,0 +1,79 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-apk:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Projeyi Çek (Checkout)
+        uses: actions/checkout@v4
+
+      - name: 🟢 Node.js 20 Kurulumu
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: ☕ Java 17 Kurulumu (Zulu JDK)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: 📱 Android SDK Kurulumu
+        uses: android-actions/setup-android@v3
+
+      - name: 📦 Bağımlılıkları Yükle (npm install)
+        run: |
+          npm install
+
+      - name: 🛠️ Web Uygulamasını Derle (Vite Build)
+        run: |
+          npm run build
+
+      - name: ⚡ Capacitor ve Android Projesi Hazırla
+        run: |
+          npm install --no-save @capacitor/core @capacitor/cli @capacitor/android
+          npx cap init "Refleks Kacis" "com.reflekskacis.game" --web-dir dist
+          npx cap add android
+          npx cap sync android
+
+      - name: 🎨 Android İkonlarını Kopyala
+        run: |
+          # Mevcut PWA ikonunu Android launcher ikonu olarak kopyala
+          if [ -f "public/pwa-512x512.png" ]; then
+            mkdir -p android/app/src/main/res/mipmap-xxxhdpi
+            cp public/pwa-512x512.png android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png
+            cp public/pwa-512x512.png android/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png
+          fi
+
+      - name: 🔨 Gradle ile APK Derle (assembleDebug)
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug --stacktrace
+
+      - name: 📤 APK Dosyasını Artifact Olarak Yükle
+        uses: actions/upload-artifact@v4
+        with:
+          name: Refleks-Kacis-Android-APK
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 30
+
+      - name: 🚀 Bilgilendirme
+        run: |
+          echo "================================================="
+          echo "APK başarıyla derlendi!"
+          echo "GitHub Actions 'Artifacts' bölümünden Refleks-Kacis-Android-APK dosyasını indirebilirsiniz."
+          echo "================================================="
