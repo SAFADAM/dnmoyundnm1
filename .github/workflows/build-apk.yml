@@ -28,27 +28,40 @@ jobs:
           java-version: '21'
 
       - name: Install Dependencies
-        run: npm install --legacy-peer-deps
+        run: |
+          npm install --legacy-peer-deps
+          npm install --save-dev @capacitor/core @capacitor/android @capacitor/cli
 
       - name: Build Web App
         run: npm run build
 
       - name: Prepare Capacitor Android Project
         run: |
-          npx cap add android || true
-          npx cap sync android
+          if [ ! -f "capacitor.config.json" ]; then
+            cat << 'EOF' > capacitor.config.json
+          {
+            "appId": "com.reflekskacis.game",
+            "appName": "Refleks Kaçış",
+            "webDir": "dist"
+          }
+          EOF
+          fi
+          if [ ! -d "android" ]; then
+            ./node_modules/.bin/cap add android
+          fi
+          ./node_modules/.bin/cap sync android
 
-      - name: Accept Android SDK Licenses
+      - name: Configure Android SDK Location
         run: |
-          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+          echo "sdk.dir=$ANDROID_HOME" > android/local.properties
 
-      - name: Build Debug APK
+      - name: Build Debug APK with Gradle
         run: |
           cd android
           chmod +x gradlew
           ./gradlew assembleDebug --no-daemon
 
-      - name: Upload APK
+      - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-debug
