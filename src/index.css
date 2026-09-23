@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .font-fnf {
+    font-family: 'Luckiest Guy', cursive, sans-serif;
+  }
+  .font-pixel {
+    font-family: 'Press Start 2P', monospace;
+  }
+  .font-digital {
+    font-family: 'VT323', monospace;
+  }
+  .font-bungee {
+    font-family: 'Bungee', cursive, sans-serif;
+  }
+
+  /* FNF Comic Bubble Text Stroke */
+  .fnf-text-stroke {
+    -webkit-text-stroke: 8px #000000;
+    paint-order: stroke fill;
+  }
+  .fnf-text-stroke-md {
+    -webkit-text-stroke: 5px #000000;
+    paint-order: stroke fill;
+  }
+  .fnf-text-stroke-sm {
+    -webkit-text-stroke: 3px #000000;
+    paint-order: stroke fill;
+  }
+  .fnf-text-shadow {
+    text-shadow: 4px 6px 0px #000000;
+  }
+  .fnf-box-shadow {
+    box-shadow: 6px 6px 0px #000000;
+  }
+  .fnf-box-shadow-sm {
+    box-shadow: 3px 3px 0px #000000;
+  }
+}
+
+/* FNF Pulsing beat bounce */
+@keyframes fnf-bop {
+  0%, 100% {
+    transform: scale(1) translateY(0);
+  }
+  15% {
+    transform: scale(1.05, 0.95) translateY(2px);
+  }
+  30% {
+    transform: scale(0.97, 1.04) translateY(-4px);
+  }
+}
+
+.animate-fnf-bop {
+  animation: fnf-bop 0.45s ease-in-out;
+}
+
+.animate-fnf-beat {
+  animation: fnf-bop 0.5s ease-in-out infinite;
+}
+
+/* FNF Menu Arrow wiggle */
+@keyframes fnf-wiggle {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(6px);
+  }
+}
+
+.animate-fnf-wiggle {
+  animation: fnf-wiggle 0.7s infinite ease-in-out;
+}

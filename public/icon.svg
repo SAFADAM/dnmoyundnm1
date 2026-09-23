@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="50%" stop-color="#020617" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+    <linearGradient id="glow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="100%" stop-color="#ec4899" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background rounded squircle -->
+  <rect width="512" height="512" rx="110" fill="url(#bg)" />
+  <rect x="16" y="16" width="480" height="480" rx="96" fill="none" stroke="#f9c944" stroke-width="12" />
+
+  <!-- Neon Grid Floor Perspective Lines -->
+  <path d="M 60 420 L 256 300 L 452 420" stroke="#06b6d4" stroke-width="6" opacity="0.6" fill="none" />
+  <path d="M 120 440 L 256 300 L 392 440" stroke="#ec4899" stroke-width="6" opacity="0.6" fill="none" />
+  <line x1="256" y1="300" x2="256" y2="460" stroke="#f9c944" stroke-width="8" opacity="0.8" />
+
+  <!-- Center Arrow / Diamond Reflex Icon -->
+  <!-- Left Arrow (Cyan) -->
+  <path d="M 130 256 L 200 200 L 200 236 L 240 236 L 240 276 L 200 276 L 200 312 Z" fill="#06b6d4" stroke="#ffffff" stroke-width="6" />
+
+  <!-- Right Arrow (Pink) -->
+  <path d="M 382 256 L 312 200 L 312 236 L 272 236 L 272 276 L 312 276 L 312 312 Z" fill="#ec4899" stroke="#ffffff" stroke-width="6" />
+
+  <!-- Up Arrow / Jump (Yellow) -->
+  <path d="M 256 120 L 312 190 L 276 190 L 276 226 L 236 226 L 236 190 L 200 190 Z" fill="#f9c944" stroke="#ffffff" stroke-width="6" />
+
+  <!-- Microphone Center Element -->
+  <circle cx="256" cy="256" r="32" fill="#ffffff" stroke="#000000" stroke-width="6" />
+  <rect x="246" y="278" width="20" height="38" rx="8" fill="#f43f5e" stroke="#000000" stroke-width="4" />
+
+  <!-- Sparkles -->
+  <polygon points="120,120 126,134 140,140 126,146 120,160 114,146 100,140 114,134" fill="#f9c944" />
+  <polygon points="390,130 395,142 408,147 395,152 390,165 385,152 372,147 385,142" fill="#06b6d4" />
+</svg>

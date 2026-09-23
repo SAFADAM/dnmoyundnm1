@@ -1,0 +1,7 @@
+{
+  "name": "Refleks Kaçış: Bariyer Koşusu",
+  "description": "Merkezdeki karakter ile soldan, sağdan, alttan ve üstten gelen engellerden kaçtığın çok bölümlü refleks oyunu.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
